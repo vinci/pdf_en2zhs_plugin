@@ -1,0 +1,11 @@
+#! /bin/sh
+
+TMP_FILE="_tmp"
+
+if [ $# -lt 1 ]; then
+        exit 1
+fi
+
+tesseract $1 $TMP_FILE -l eng 2>/dev/null
+cat $TMP_FILE".txt" | egrep "[^$]"
+rm -f $TMP_FILE".txt"

@@ -1,0 +1,3 @@
+#! /bin/sh
+
+xdotool getmouselocation --shell 2>/dev/null | grep Y | awk -F'=' '{print $2}'

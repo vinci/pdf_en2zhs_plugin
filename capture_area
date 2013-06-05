@@ -1,0 +1,28 @@
+#! /bin/sh
+
+# 选择起点为左上角$1(x1,y1)，终点为$2(x2,y2)的区域
+
+OUT="sc.png"
+
+if [ $# -lt 2 ]; then
+        exit 1
+fi
+
+getx() {
+        echo $1 | awk -F',' '{print $1}'
+}
+
+gety() {
+        echo $1 | awk -F',' '{print $2}'
+}
+
+x1=`getx $1`
+y1=`gety $1`
+
+x2=`getx $2`
+y2=`gety $2`
+
+w=$[$x2-$x1]
+h=$[$y2-$y1]
+
+import -window root -crop $w"x"$h"+"$x1"+"$y1 $OUT
