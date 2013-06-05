@@ -1,6 +1,6 @@
 #! /bin/sh
 
-EXP_VAL=5
+EXP_VAL=4
 
 ox=`echo $1 | awk -F, '{print $1}'`
 oy=`echo $1 | awk -F, '{print $2}'`

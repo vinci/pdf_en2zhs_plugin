@@ -1,0 +1,41 @@
+#! /bin/sh
+# $1 is mouse position (Point)
+
+AREA=sc.png
+STEP=5
+
+upper_camera() {
+        # $1 is Camera
+
+        
+        x1=`echo $1 | awk '{print $1}' | awk -F, '{print $1}'`
+        y1=`echo $1 | awk '{print $1}' | awk -F, '{print $2}'`
+
+
+        x2=`echo $2 | awk '{print $1}' | awk -F, '{print $1}'`
+        y2=`echo $2 | awk '{print $1}' | awk -F, '{print $2}'`
+
+        y1=$[$y1+$STEP]
+        y2=$[$y2+$STEP]
+
+        echo "$x1,$y1 $x2,$y2"
+}
+
+dbound() {
+        local new_camera=`./camera $1`
+        ./capture_area $new_camera
+        ./area_is_blank $AREA
+        while [ $? -eq 0 ]; do
+                new_camera=`upper_camera $new_camera`
+                ./capture_area $new_camera
+                ./area_is_blank $AREA
+        done
+        echo $new_camera | awk -F, '{print $1}'
+}
+
+
+if [ $# -lt 1 ]; then
+        exit 1
+fi
+
+dbound $1
