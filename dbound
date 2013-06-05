@@ -30,7 +30,7 @@ dbound() {
                 ./capture_area $new_camera
                 ./area_is_blank $AREA
         done
-        echo $new_camera | awk -F, '{print $1}'
+        echo $new_camera | awk '{print $1}' | awk -F, '{print $2}'
 }
 
 
