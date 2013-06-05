@@ -1,0 +1,14 @@
+#! /bin/sh
+
+EXP_VAL=5
+
+ox=`echo $1 | awk -F, '{print $1}'`
+oy=`echo $1 | awk -F, '{print $2}'`
+
+x1=$[$ox-$EXP_VAL];
+y1=$[$oy-$EXP_VAL];
+
+x2=$[$ox+$EXP_VAL];
+y2=$[$oy+$EXP_VAL];
+
+echo $x1,$y1 $x2,$y2
