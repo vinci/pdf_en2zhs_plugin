@@ -17,8 +17,8 @@ upper_camera() {
         x2=`echo $2 | awk '{print $1}' | awk -F, '{print $1}'`
         y2=`echo $2 | awk '{print $1}' | awk -F, '{print $2}'`
 
-        y1=$[$y1-$STEP]
-        y2=$[$y2-$STEP]
+        x1=$[$x1-$STEP]
+        x2=$[$x2-$STEP]
 
         echo "$x1,$y1 $x2,$y2"
 }
@@ -32,7 +32,7 @@ dbound() {
                 ./capture_area $new_camera
                 ./area_is_blank $AREA
         done
-        echo $new_camera | awk '{print $1}' | awk -F, '{print $2}'
+        echo $new_camera | awk '{print $1}' | awk -F, '{print $1}'
 }
 
 

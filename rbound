@@ -4,7 +4,21 @@
 # This file is copy from dbound, Symbol is nothing :-)
 
 AREA=sc.png
-STEP=5
+STEP=4
+EXP_VAL=3
+
+camera() {
+        ox=`echo $1 | awk -F, '{print $1}'`
+        oy=`echo $1 | awk -F, '{print $2}'`
+
+        x1=$[$ox-$EXP_VAL];
+        y1=$[$oy-$EXP_VAL];
+
+        x2=$[$ox+$EXP_VAL];
+        y2=$[$oy+$EXP_VAL];
+
+        echo $x1,$y1 $x2,$y2
+}
 
 upper_camera() {
         # $1 is Camera
@@ -17,14 +31,14 @@ upper_camera() {
         x2=`echo $2 | awk '{print $1}' | awk -F, '{print $1}'`
         y2=`echo $2 | awk '{print $1}' | awk -F, '{print $2}'`
 
-        y1=$[$y1-$STEP]
-        y2=$[$y2-$STEP]
+        x1=$[$x1+$STEP]
+        x2=$[$x2+$STEP]
 
         echo "$x1,$y1 $x2,$y2"
 }
 
 dbound() {
-        local new_camera=`./camera $1`
+        local new_camera=`camera $1`
         ./capture_area $new_camera
         ./area_is_blank $AREA
         while [ $? -eq 0 ]; do
@@ -32,7 +46,7 @@ dbound() {
                 ./capture_area $new_camera
                 ./area_is_blank $AREA
         done
-        echo $new_camera | awk '{print $1}' | awk -F, '{print $2}'
+        echo $new_camera # | awk '{print $1}' | awk -F, '{print $1}'
 }
 
 
